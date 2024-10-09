@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-import pyowm
 
 from auth.models import UserRepository
 from database import get_async_session
