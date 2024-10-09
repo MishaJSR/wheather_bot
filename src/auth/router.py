@@ -1,0 +1,34 @@
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from src.auth.models import UserRepository
+from src.auth.schemas import ConstructUser
+from src.database import get_async_session
+from src.logs.models import LogsRepository
+from src.logs.schemas import ConstructLog
+from src.logs.utils import add_log
+
+router = APIRouter(
+    prefix="/user",
+    tags=["User"]
+)
+
+
+@router.post("/check_or_create")
+async def get_last_messages(tg_user_id: int, user_tag: str = "@", session: AsyncSession = Depends(get_async_session)):
+    user_repo = UserRepository()
+    logs_repo = LogsRepository()
+    field_filter = {
+        "tg_user_id": tg_user_id
+    }
+    res = await user_repo.get_one_by_fields(session=session, data=["id", "tg_user_id"], field_filter=field_filter)
+    if res:
+        await add_log(session=session, repo=logs_repo, tg_user_id=tg_user_id,
+                      request=f"User {tg_user_id} already add", status="OK")
+        return res
+    else:
+        res = await user_repo.add_object(session=session, data=ConstructUser(tg_user_id=tg_user_id,
+                                                                             user_tag=user_tag).model_dump())
+        await add_log(session=session, repo=logs_repo, tg_user_id=tg_user_id,
+                      request=f"Add new user {tg_user_id}", status="OK")
+        return res
