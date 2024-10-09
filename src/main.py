@@ -2,9 +2,9 @@ import logging
 
 import uvicorn
 from fastapi import FastAPI
-from auth.router import router as auth_router
-from post_router.router import router as post_router
-from logs.router import router as logs_router
+from src.auth.router import router as auth_router
+from src.post_router.router import router as post_router
+from src.logs.router import router as logs_router
 import betterlogging as bl
 
 
