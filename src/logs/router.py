@@ -16,7 +16,6 @@ class Item(BaseModel):
     name: str
 
 # Временное хранилище для элементов
-items = [Item(id=i, name=f"Item {i}") for i in range(1, 101)]
 
 @router.get("/{user_id}")
 async def get_logs_by_id(user_id: int, skip: int = Query(0, ge=0), limit: int = Query(10, gt=0),
