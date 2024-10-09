@@ -15,7 +15,18 @@ router = APIRouter(
 
 
 @router.post("/check_or_create")
-async def get_last_messages(tg_user_id: int, user_tag: str = "@", session: AsyncSession = Depends(get_async_session)):
+async def create_user(tg_user_id: int, user_tag: str = "@", session: AsyncSession = Depends(get_async_session)):
+    """
+    Создать пользователя, если он уже есть в базе вернуть его структуру \n
+    Для первого случая возвращается id в таблице users\n
+    Для второго случая возвращается обьект dict вида\n
+        some_dict =
+            {
+                "id": 4,
+                "tg_user_id": 123123
+            }
+
+    """
     user_repo = UserRepository()
     logs_repo = LogsRepository()
     field_filter = {

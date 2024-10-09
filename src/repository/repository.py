@@ -81,3 +81,16 @@ class SQLAlchemyRepository(AbstractRepository):
         res = await session.execute(query)
         res_values = [el._data for el in res.fetchall()]
         return [AlchemyDataObject(kwargs.get("data"), value) for value in res_values]
+
+    @async_sqlalchemy_exceptions
+    async def get_all_by_limits(self, **kwargs):
+        session = kwargs.get("session")
+        query = select(*[getattr(self.model, field) for field in kwargs.get("data")]).\
+            offset(kwargs.get("skip")).\
+            limit(kwargs.get("limit"))
+        if kwargs.get("field_filter"):
+            for key, value in kwargs.get("field_filter").items():
+                query = query.filter(getattr(self.model, key) == value)
+        res = await session.execute(query)
+        res_values = [el._data for el in res.fetchall()]
+        return [AlchemyDataObject(kwargs.get("data"), value) for value in res_values]

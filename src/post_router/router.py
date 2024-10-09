@@ -16,7 +16,21 @@ router = APIRouter(
 
 
 @router.post("/get_weather_by_id")
-async def get_last_messages(user_tg_id: int, city: str, session: AsyncSession = Depends(get_async_session)):
+async def get_weather_by_id(user_tg_id: int, city: str, session: AsyncSession = Depends(get_async_session)):
+    """
+    По telegram id пользователя бота и городу получить данные о погоде \n
+    Возвращает обьект dict вида: \n
+
+        some_dict =
+            {
+              "town": "Лондон",
+              "temperature": 15.04,
+              "feels_like": 14.74,
+              "weather_description": "пасмурно",
+              "humidity": 82,
+              "wind_speed": 1.54
+            }
+    """
     logs_repo = LogsRepository()
     user_repo = UserRepository()
     apy_key = Settings().get_api_key()
