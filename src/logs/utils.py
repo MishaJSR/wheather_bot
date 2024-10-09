@@ -1,4 +1,4 @@
-from src.logs.schemas import ConstructLog
+from logs.schemas import ConstructLog
 
 
 async def add_log(session, repo, tg_user_id, request, status):

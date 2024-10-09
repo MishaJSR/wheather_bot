@@ -1,12 +1,14 @@
+import os
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.auth.models import UserRepository
-from src.auth.schemas import ConstructUser
-from src.database import get_async_session
-from src.logs.models import LogsRepository
-from src.logs.schemas import ConstructLog
-from src.logs.utils import add_log
+from auth.models import UserRepository
+from auth.schemas import ConstructUser
+from database import get_async_session
+from logs.models import LogsRepository
+from logs.schemas import ConstructLog
+from logs.utils import add_log
 
 router = APIRouter(
     prefix="/user",
