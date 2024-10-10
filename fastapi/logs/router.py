@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database import get_async_session
-from src.logs.models import LogsRepository
+from database import get_async_session
+from logs.models import LogsRepository
 
 router = APIRouter(
     prefix="/logs",

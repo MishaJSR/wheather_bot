@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.auth.models import UserRepository
-from src.database import get_async_session
-from src.logs.models import LogsRepository
-from src.logs.utils import add_log
-from src.post_router.utils import get_weather_data
-from src.config import Settings
+from auth.models import UserRepository
+from database import get_async_session
+from logs.models import LogsRepository
+from logs.utils import add_log
+from post_router.utils import get_weather_data
+from config import Settings
 
 router = APIRouter(
     prefix="/get_weather",
