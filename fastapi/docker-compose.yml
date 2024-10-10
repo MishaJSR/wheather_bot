@@ -1,13 +1,24 @@
 version: '3.8'
 
 services:
+  pg_database:
+    image: postgres:14
+    restart: always
+    env_file:
+      - ".env"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   fastapi:
     image: "fastapi-test"
     stop_signal: SIGINT
     build:
       context: .
+    depends_on:
+      - pg_database
     stdin_open: true
-    command: poetry run python3 -m bot
+    command: >
+      sh -c "alembic revision --autogenerate && alembic upgrade head && poetry run python3 -m bot"
     ports:
       - "8000:8000"
     env_file:
@@ -18,14 +29,6 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
-
-  pg_database:
-    image: postgres:14
-    restart: always
-    env_file:
-      - ".env"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
 volumes:
   pgdata:
