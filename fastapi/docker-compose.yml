@@ -5,7 +5,7 @@ services:
     image: "fastapi-test"
     stop_signal: SIGINT
     build:
-      context: fastapi
+      context: .
     stdin_open: true
     ports:
       - "8000:8000"
@@ -22,7 +22,7 @@ services:
     image: postgres:14
     restart: always
     env_file:
-      - fastapi/.env
+      - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
 
