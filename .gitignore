@@ -2,3 +2,4 @@
 /venv
 fastapi/.env
 fastapi/.idea
+.env

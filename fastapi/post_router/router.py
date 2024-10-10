@@ -6,7 +6,7 @@ from database import get_async_session
 from logs.models import LogsRepository
 from logs.utils import add_log
 from post_router.utils import get_weather_data
-from config import Settings
+from base_config import Settings
 
 router = APIRouter(
     prefix="/get_weather",

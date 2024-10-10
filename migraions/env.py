@@ -5,10 +5,17 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from fastapi.config import Settings
-from fastapi.database import Base, metadata
-from fastapi.auth.models import *
-from fastapi.logs.models import *
+#prod
+# from fastapi.base_config import Settings
+# from fastapi.database import Base, metadata
+# from fastapi.auth.models import *
+# from fastapi.logs.models import *
+
+#dev
+from base_config import Settings
+from database import Base, metadata
+from auth.models import *
+from logs.models import *
 
 
 config = context.config
