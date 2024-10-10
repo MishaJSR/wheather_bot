@@ -27,3 +27,5 @@ app = FastAPI(title="Weather App")
 app.include_router(post_router)
 app.include_router(auth_router)
 app.include_router(logs_router)
+
+#
