@@ -3,3 +3,4 @@
 fastapi/.env
 fastapi/.idea
 .env
+fastapi/migraions/versions
