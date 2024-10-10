@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   fastapi:
-    image: "fastapi"
+    image: "fastapi-test"
     stop_signal: SIGINT
     build:
       context: fastapi
@@ -10,7 +10,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - fastapi/.env
+      - .env
     restart: always
     logging:
       driver: "json-file"
