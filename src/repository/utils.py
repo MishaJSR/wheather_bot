@@ -2,7 +2,7 @@ import logging
 
 from sqlalchemy import select, desc
 
-from repository.exceptions import CustomException
+from src.repository.exceptions import CustomException
 
 
 def async_session_maker_decorator_select(func):

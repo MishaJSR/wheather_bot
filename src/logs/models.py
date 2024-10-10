@@ -1,8 +1,8 @@
 from datetime import datetime
 from sqlalchemy import (TIMESTAMP, Boolean, Column, Integer, String, ForeignKey, BigInteger)
 
-from database import Base
-from repository.repository import SQLAlchemyRepository
+from src.database import Base
+from src.repository.repository import SQLAlchemyRepository
 
 
 class Logs(Base):

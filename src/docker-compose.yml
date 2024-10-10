@@ -6,7 +6,6 @@ services:
     stop_signal: SIGINT
     build:
       context: .
-      dockerfile: Dockerfile
     stdin_open: true
     ports:
       - "8000:8000"
