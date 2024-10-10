@@ -18,8 +18,7 @@ services:
       - pg_database
     stdin_open: true
     command: >
-      sh -c "mkdir -p migrations/versions && poetry run alembic revision --autogenerate &&
-      poetry run alembic upgrade head && poetry run python3 -m main"
+      sh -c "poetry run python3 -m main"
     ports:
       - "8000:8000"
     env_file:
