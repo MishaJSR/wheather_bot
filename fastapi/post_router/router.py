@@ -1,3 +1,6 @@
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -32,8 +35,8 @@ async def get_weather_by_id(user_tg_id: int, city: str, session: AsyncSession = 
     """
     logs_repo = LogsRepository()
     user_repo = UserRepository()
-    apy_key = Settings().get_api_key()
-    res = get_weather_data(city, apy_key)
+    api_key = Settings().get_api_key()
+    res = await asyncio.to_thread(get_weather_data, city, api_key)
     field_filter = {
         "tg_user_id": user_tg_id
     }
@@ -43,7 +46,7 @@ async def get_weather_by_id(user_tg_id: int, city: str, session: AsyncSession = 
     if not res:
         await add_log(session=session, repo=logs_repo, tg_user_id=user_tg_id,
                       request=f"get_weather_by_id user:{user_tg_id} city:{city}", status="City Not Found")
-        return HTTPException(status_code=400, detail={"Город не найден"})
+        return HTTPException(status_code=400, detail={"Город не найден или ошибка на строне openweather"})
     else:
         await add_log(session=session, repo=logs_repo, tg_user_id=user_tg_id,
                       request=f"get_weather_by_id user:{user_tg_id} city:{city}", status="OK")
